@@ -41,28 +41,19 @@ class Category {
      * @returns {number} The balance
      */
     getBalance(){
-        let balance = 0;
-
-        this.ledger.forEach(row => {
-            balance += row.amount;
-        });
-
-        return balance;
+        return this.ledger.reduce((totalBalance, transaction) => totalBalance + parseFloat(transaction.amount), 0);
     }
     /**
      * Returns the current balance of the budget category based only on the withdrawals that have occurred
      * @returns {number} The balance
      */
     getWithdrawBalance(){
-        let balance = 0;
-
-        this.ledger.forEach(row => {
-            if(row.amount < 0){
-                balance += row.amount;
-            }
-        });
-
-        return balance;
+        // more performant code
+        // return this.ledger.reduce((totalBalance, transaction) => transaction.amount < 0 ? totalBalance + parseFloat(transaction.amount) : 0, 0);
+        // just for education
+        return this.ledger
+            .filter(transaction => transaction.amount < 0)
+            .reduce((totalBalance, transaction) => totalBalance + parseFloat(transaction.amount), 0);
     }
     /**
      * Transfer an amount from a category to another and reports it int the ledger
@@ -120,22 +111,21 @@ function createSpendChart(categories){
         percentagesInTens.push(i)
     }
 
-    const categoriesExtractedData = [];
     let totalWithdraw = 0;
     let longestCategoryName = '';
 
-    categories.forEach(category => {
+    const categoriesExtractedData = categories.map(category => {
         const withdraw = category.getWithdrawBalance();
 
         totalWithdraw += withdraw;
 
-        categoriesExtractedData.push({
-            name: category.categoryName,
-            withdraw
-        });
-
         if(category.categoryName.length > longestCategoryName.length){
             longestCategoryName = category.categoryName;
+        }
+
+        return {
+            name: category.categoryName,
+            withdraw
         }
     });
 
