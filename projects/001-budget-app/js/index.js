@@ -1,7 +1,7 @@
 /** Class representing a Category. */
 class Category {
     /**
-     * Create a category and assigns it the name and an empty array, the ledger, which will be populated later by the history of the movement of money.
+     * Creates a category and assigns it the name and an empty array, the ledger, which will be populated later by the history of the movement of money.
      * @param {string} category - The name of the category 
      */
     constructor(category){
@@ -9,7 +9,7 @@ class Category {
         this.ledger = [];
     }
     /**
-     * Append a deposit to the ledger list reporting the amount and the description
+     * Appends a deposit to the ledger list reporting the amount and the description
      * @param {number} amount - The amount to be deposited
      * @param {string} description - The description of the deposit
      */
@@ -20,7 +20,7 @@ class Category {
         });
     }
     /**
-    * Append a withdrawal to the ledger list reporting the negative amount and the description
+    * Appends a withdrawal to the ledger list reporting the negative amount and the description
     * @param {number} amount - The amount to be withdrawn
     * @param {string} description - The description of the withdrawal
     * @returns {boolean} `true` if the balance is positive and the amount to be withdrawn does not make it negative, otherwise `false`
@@ -56,7 +56,7 @@ class Category {
             .reduce((totalBalance, transaction) => totalBalance + parseFloat(transaction.amount), 0);
     }
     /**
-     * Transfer an amount from a category to another and reports it int the ledger
+     * Transfers an amount from a category to another and reports it int the ledger
      * @param {*} amount - The amount to be transferred
      * @param {*} budgetCategory - The category to which the transfer is made
      * @returns {boolean} `true` if the balance is positive and the amount to be transferred does not make it negative, otherwise `false`
@@ -71,7 +71,7 @@ class Category {
         return false;
     }
     /**
-     * Check if the amount is greater than the balance of the budget category
+     * Checks if the amount is greater than the balance of the budget category
      * @param {*} amount - The amount to be checked
      * @returns {boolean} `false` if the amount is greater than the balance of the budget category, otherwise `true`
      */
